@@ -1,0 +1,121 @@
+let puzzle = [[ 8,9,5,   7,4,2,   1,3,6 ],
+              [ 2,7,1,   9,6,3,   4,8,5 ],
+              [ 4,6,3,   5,8,1,   7,9,2 ],
+
+              [ 9,3,4,   6,1,7,   2,5,8 ],
+              [ 5,1,7,   2,3,8,   9,6,4 ],
+              [ 6,8,2,   4,5,9,   3,7,1 ],
+
+              [ 1,5,9,   8,7,4,   6,2,3 ],
+              [ 7,4,6,   3,2,5,   8,1,9 ],
+              [ 3,2,8,   1,9,6,   5,4,7 ]];
+
+let puzzleTwo = [[ 8,9,5,   7,4,2,   1,3,6 ],
+                 [ 8,7,1,   9,6,3,   4,8,5 ],
+                 [ 4,6,3,   5,8,1,   7,9,2 ],
+                 [ 9,3,4,   6,1,7,   2,5,8 ],
+                 [ 5,1,7,   2,3,8,   9,6,4 ],
+                 [ 6,8,2,   4,5,9,   3,7,1 ],
+                 [ 1,5,9,   8,7,4,   6,2,3 ],
+                 [ 7,4,6,   3,2,5,   8,1,9 ],
+                 [ 3,2,8,   1,9,6,   5,4,7 ]];
+
+function getRow(puzzle, row) {
+  let firstarray = []
+  for (i = 0; i < puzzle[row].length; i++){
+    firstarray.push(puzzle[row][i])
+  }
+  return firstarray
+}
+
+function getColumn(puzzle, col) {
+  let secondarray = []
+  for (i = 0; i < puzzle[col].length; i++){
+    secondarray.push(puzzle[i][col])
+  }
+  return secondarray
+}
+
+function getSection(puzzle, x, y) {
+  let thirdarray = []
+  if (x == 0 && y == 0){
+    for (i = 0; i <= 2; i++){
+      for (j = 0; j <= 2; j++)
+      thirdarray.push(puzzle[i][j])
+    }
+  }else if (x == 0 && y == 1){
+    for (i = 3; i <= 5; i++){
+      for (j = 0; j <= 2; j++)
+      thirdarray.push(puzzle[i][j])
+    }
+  }else if (x == 0 && y == 2){
+    for (i = 6; i <= 8; i++){
+      for (j = 0; j <= 2; j++)
+      thirdarray.push(puzzle[i][j])
+    }
+  }else if (x == 1 && y == 0){
+    for (i = 0; i <= 2; i++){
+      for (j = 3; j <= 5; j++)
+      thirdarray.push(puzzle[i][j])
+    }
+  }else if (x == 1 && y == 1){
+    for (i = 3; i <= 5; i++){
+      for (j = 3; j <= 5; j++)
+      thirdarray.push(puzzle[i][j])
+    }
+  }else if (x == 1 && y == 2){
+    for (i = 6; i <= 8; i++){
+      for (j = 3; j <= 5; j++)
+      thirdarray.push(puzzle[i][j])
+    }
+  }else if (x == 2 && y == 0){
+    for (i = 0; i <= 2; i++){
+      for (j = 6; j <= 8; j++)
+      thirdarray.push(puzzle[i][j])
+    }
+  }else if (x == 2 && y == 1){
+    for (i = 3; i <= 5; i++){
+      for (j = 6; j <= 8; j++)
+      thirdarray.push(puzzle[i][j])
+    }
+  }else if (x == 2 && y == 2){
+    for (i = 6; i <= 8; i++){
+      for (j = 6; j <= 8; j++)
+      thirdarray.push(puzzle[i][j])
+    }
+  }
+  return thirdarray
+}
+
+function includes1To9(arr) {
+  for (i = 0; i < arr.length; i++){
+    for (j = 0; j < arr.length; j++){
+      if (j != i){
+        if (arr[i] === arr[j]){
+          return false
+               } else {
+                return true
+               }
+            }
+        }
+    }
+}
+
+function sudokuIsValid(puzzle) {
+    let valid = []
+    for (let i=0;i<9;i++) {
+        valid.push(getRow(puzzle, i))
+        valid.push(getColumn(puzzle,i))
+    }
+    for (let i=0;i<3;i++){
+        for (let j=0; j<3; j++){
+            valid.push(getSection(puzzle, i, j))
+        }
+    }
+    for (let i=0; i < valid.length; i++) {
+      if (includes1To9(valid[i]) === false){
+        return false
+    }
+}   return true
+
+}
